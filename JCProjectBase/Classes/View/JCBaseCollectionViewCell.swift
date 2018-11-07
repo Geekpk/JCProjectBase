@@ -1,6 +1,6 @@
 //
-//  BaseCollectionViewCell.swift
-//  MBAComing
+//  JCBaseCollectionViewCell.swift
+//  JCProgramBase
 //
 //  Created by 江城 on 2018/10/24.
 //  Copyright © 2018年 Arvin.shi. All rights reserved.
@@ -9,7 +9,9 @@
 import UIKit
 
 class BaseCollectionViewCell: UICollectionViewCell {
-    func config(_ m : Model) { }
+    func config(_ m : JCModel) { }
+    
+    /// cell name
     static var cellClassName : String {
         return NSString.init(cString: object_getClassName(self), encoding: String.Encoding.utf8.rawValue)!.components(separatedBy: ".").last!
     }

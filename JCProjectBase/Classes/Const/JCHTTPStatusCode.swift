@@ -1,14 +1,14 @@
 //
-//  Error.swift
-//  SLProgramBase
+//  JCHTTPStatusCode.swift
+//  JCProgramBase
 //
 //  Created by 江城 on 2018/10/17.
 //  Copyright © 2018年 Arvin.shi. All rights reserved.
 //
 
 import Foundation
-enum error {
-}
+
+/// 网络请求的状态码解析
 enum HTTPCode : Int {
     case Success = 200
     case Success_Created

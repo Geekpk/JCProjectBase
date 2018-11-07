@@ -1,6 +1,6 @@
 //
-//  LocationLoad.swift
-//  MBAComing
+//  JCLocationLoad.swift
+//  JCProgramBase
 //
 //  Created by 江城 on 2018/10/24.
 //  Copyright © 2018年 Arvin.shi. All rights reserved.
@@ -9,13 +9,13 @@
 import Foundation
 import CoreLocation
 
-class LocationLoad: NSObject, CLLocationManagerDelegate {
-    private static let manager = LocationLoad()
+class JCLocationLoad: NSObject, CLLocationManagerDelegate {
+    private static let manager = JCLocationLoad()
     private override init() {
         super.init()
     }
     
-    static var share: LocationLoad {
+    static var share: JCLocationLoad {
         return manager
     }
     
@@ -64,12 +64,15 @@ class LocationLoad: NSObject, CLLocationManagerDelegate {
     
     private func analysisLocation() {
         let gec = CLGeocoder.init()
+        
         gec.reverseGeocodeLocation(currentLocation!) { (placeMark, error) in
             if let err = error {
                 //发送失败通知
                 NotificationCenter.default.post(name: NSNotification.Name.updateLocationFail, object: nil)
                 JCLog(message: err.localizedDescription)
             }else{
+                
+                /// 只适用于国内内地城市的解析，香港就不行
                 if let places = placeMark,
                     let mark = places.first,
                     let address = mark.addressDictionary,

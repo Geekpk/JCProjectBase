@@ -1,13 +1,13 @@
 //
-//  Refresh.swift
-//  SLProgramBase
+//  JCRefresh.swift
+//  JCProgramBase
 //
 //  Created by 江城 on 2018/10/22.
 //  Copyright © 2018年 Arvin.shi. All rights reserved.
 //
 
 import MJRefresh
-class RefreshHeader: MJRefreshStateHeader {
+class JCRefreshHeader: MJRefreshStateHeader {
     lazy var gifView: UIImageView = {
         var gitView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: w(), height: 40))
         gitView.contentMode = .center

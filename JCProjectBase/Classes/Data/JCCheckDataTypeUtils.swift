@@ -1,6 +1,6 @@
 //
-//  CheckDataTypeUtils.swift
-//  SLProgramBase
+//  JCCheckDataTypeUtils.swift
+//  JCProgramBase
 //
 //  Created by 江城 on 2018/10/19.
 //  Copyright © 2018年 Arvin.shi. All rights reserved.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CheckDataTypeUtils: NSObject {
+class JCCheckDataTypeUtils: NSObject {
     /**
      *  判断对象是否为空,防止类型转换崩溃,,转换为NSInteger类型
      *
@@ -133,7 +133,7 @@ class CheckDataTypeUtils: NSObject {
         if string.count != 11 || !string.hasPrefix("1") {
             return false
         }
-        return CheckDataTypeUtils.isNumber(string)
+        return JCCheckDataTypeUtils.isNumber(string)
     }
     
     /// 判断是否是身份证号

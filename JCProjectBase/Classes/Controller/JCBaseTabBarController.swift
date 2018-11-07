@@ -1,13 +1,12 @@
 //
-//  BaseTabBarController.swift
-//  MBAComing
-//
+//  JCBaseTabBarController.swift
+//  JCProgramBase
 //  Created by 江城 on 2018/10/23.
 //  Copyright © 2018年 Arvin.shi. All rights reserved.
 //
 
 import Foundation
-class BaseTabBarController: UITabBarController {
+class JCBaseTabBarController: UITabBarController {
     
     /// 设置子控制器属性内容
     ///
@@ -18,7 +17,7 @@ class BaseTabBarController: UITabBarController {
     ///   - selImg: 选中时图片
     ///   - imgInset: 偏移
     //WARNING: 设置偏移时，需要对成，不然会发生点击变小或变大的情况
-    func addSon(_ child : UIViewController, _ title : String?, _ img : String?, _ selImg : String?, _ imgInset : UIEdgeInsets?) {
+    func jc_AddChild(_ child : UIViewController, _ title : String?, _ img : String?, _ selImg : String?, _ imgInset : UIEdgeInsets?) {
         if let timg = img {
             child.tabBarItem.image = UIImage.init(named: timg)?.withRenderingMode(.alwaysOriginal)
         }
@@ -32,7 +31,7 @@ class BaseTabBarController: UITabBarController {
         child.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : UIColor.init(hex6: 0xEFB63F)], for: .selected)
         child.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : UIColor.init(hex6: 0x999999)], for: .normal)
         
-        let navi = BaseNavigationController.init(rootViewController: child)
+        let navi = JCBaseNavigationController.init(rootViewController: child)
         addChild(navi)
     }
 }

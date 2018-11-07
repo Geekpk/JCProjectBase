@@ -1,6 +1,6 @@
 //
 //  JCDelegateHandle.swift
-//  MBAComing
+//  JCProgramBase
 //
 //  Created by 江城 on 2018/10/25.
 //  Copyright © 2018年 Arvin.shi. All rights reserved.
@@ -40,6 +40,7 @@ class JCDelegateHandle: NSObject {
     func config(_ source : [[Any]],
                 _ identify : String,
                 _ cellName : String? = nil) {
+        
         _source = [[Any]].init(source)
         
         var clsName = identify

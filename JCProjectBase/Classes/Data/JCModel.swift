@@ -1,13 +1,13 @@
 //
-//  Model.swift
-//  SLProgramBase
+//  JCModel.swift
+//  JCProgramBase
 //
 //  Created by 江城 on 2018/10/17.
 //  Copyright © 2018年 Arvin.shi. All rights reserved.
 //
 import Mantle
 import Foundation
-class Model: MTLModel, MTLJSONSerializing {
+class JCModel: MTLModel, MTLJSONSerializing {
     static func jsonKeyPathsByPropertyKey() -> [AnyHashable : Any]! {
         var keyValues = [AnyHashable : Any].init()
         var count : UInt32 = 0

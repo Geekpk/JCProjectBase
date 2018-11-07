@@ -1,6 +1,6 @@
 //
-//  BaseController.swift
-//  SLProgramBase
+//  JCBaseViewController.swift
+//  JCProgramBase
 //
 //  Created by 江城 on 2018/10/17.
 //  Copyright © 2018年 Arvin.shi. All rights reserved.
@@ -9,40 +9,36 @@
 import Foundation
 import IQKeyboardManager
 
-class BaseViewController: UIViewController, RequestHandleDelegate, UITableViewDelegate {
-    var isHiddenNavigationBar : Bool = false
+class JCBaseViewController: UIViewController, JCRequestHandleDelegate, UITableViewDelegate {
+    enum StatusBarStyle {
+        case black
+        case white
+    }
+    //MARK: - 属性
+    /// 用于表示是否需要刷新
     var isNeedRefresh : Bool = false
     
     private var navigationBarBgv : UIView?
     
-    var city : String = "北京"
+    /// 电池栏样式
+    var statusBarStyle : StatusBarStyle = .black
     
+    /// 自定义导航栏背景
     var navigationBarBackgroundView: UIView? {
-        if let _ = navigationController,navigationController is BaseNavigationController {
-            return (navigationController as! BaseNavigationController).customizedBackgroundView
+        if let _ = navigationController,navigationController is JCBaseNavigationController {
+            return (navigationController as! JCBaseNavigationController).customizedBackgroundView
         }
         return nil
     }
     
-    @objc func updateLocation(_ notify : Notification) {
-        if let info = notify.userInfo, let _city = info["City"] as? String {
-            city = _city
-        }
-    }
-    
+    //MARK: - 生命周期方法
     override func viewDidLoad() {
         super.viewDidLoad()
         normalSetting()
     }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.updateLocationSuccess, object: nil)
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateLocation(_:)), name: Notification.Name.updateLocationSuccess, object: nil)
-        LocationLoad.share.startLoading()
         
         var scrollView : UIScrollView?
         for v in view.subviews {
@@ -64,7 +60,8 @@ class BaseViewController: UIViewController, RequestHandleDelegate, UITableViewDe
             tabBarController?.tabBar.isHidden = navi.children.count > 1
         }
     }
-    
+    //MARK: - 通用工具方法
+    /// 通用设置
     func normalSetting() {
         IQKeyboardManager.shared().isEnableAutoToolbar = true
         if let childs = navigationController?.children, childs.count > 1 { defaultLeftBarButtonItem() }
@@ -81,24 +78,32 @@ class BaseViewController: UIViewController, RequestHandleDelegate, UITableViewDe
     /// 数据解析，处理
     func dealWithReseponse(){}
     
-    func dataControllerDidFinishLoading(_ handle: NetworkHandle) {
-        JCLog(message: "")
-    }
-    func dataController(_ handle: NetworkHandle, didFailWithError error: Error?) {
-        JCLog(message: "")
-    }
-    
-    func showMSG(_ msg: String) {
-        showHint(msg)
-    }
-    
+    //MARK: - 导航栏事件相关
     /// 设置item
     func defaultLeftBarButtonItem() {
         showLeftBarButtonItem()
     }
     
+    /// 是否隐藏导航栏
+    var isHiddenNavigationBar: Bool = false {
+        willSet {
+            if isViewLoaded {
+                navigationController?.navigationBar.isHidden = newValue
+            }
+        }
+    }
     
+    /// 根据statusBarStyle样式设置导航栏颜色样式
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        switch statusBarStyle {
+        case .white:    return .lightContent
+        case .black:    return .default
+        }
+    }
     
+    /// 设置左边naviItem
+    ///
+    /// - Parameter img: 图片
     func showLeftBarButtonItem(_ img : UIImage? = UIImage.init(named: "back")?.byTintColor(UIColor.darkGray)) {
         let item = UIBarButtonItem.init(image: img?.withRenderingMode(.alwaysOriginal),
                                         style: .plain,
@@ -108,19 +113,34 @@ class BaseViewController: UIViewController, RequestHandleDelegate, UITableViewDe
         navigationItem.setLeftBarButton(item, animated: false)
     }
     
+    
+    /// 设置左边naviItem
+    ///
+    /// - Parameters:
+    ///   - title: item文字内容
+    ///   - titleColor: item字的颜色
+    ///   - font: item 字体
     func showLeftBarButtonItem(_ title : String?,
-                               _ color : UIColor = UIColor.init(hex6: 0x3b424c),
+                               _ titleColor : UIColor = UIColor.init(hex6: 0x3b424c),
                                _ font : UIFont = UIFont.systemFont(ofSize: 14)) {
         let item = UIBarButtonItem.init(title: title,
                                         style: .plain,
                                         target: self,
                                         action: #selector(self.tapLeftBarButtonItem))
         
-        item.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : color, NSAttributedString.Key.font : font],
+        item.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : titleColor, NSAttributedString.Key.font : font],
                                     for: UIControl.State.normal)
         
         navigationItem.setLeftBarButton(item, animated: false)
     }
+    
+    /// 设置左边naviItem
+    ///
+    /// - Parameters:
+    ///   - img: item图片
+    ///   - title: item文字内容
+    ///   - titleColor: item字的颜色
+    ///   - font: item 字体
     func showLeftBarButtonItem(_ img : UIImage? = UIImage.init(named: "back")?.byTintColor(UIColor.darkGray),
                                _ title : String?,
                                _ color : UIColor = UIColor.init(hex6: 0x3b424c),
@@ -136,15 +156,21 @@ class BaseViewController: UIViewController, RequestHandleDelegate, UITableViewDe
         navigationItem.setLeftBarButton(item, animated: false)
     }
     
+    /// 设置右边naviItem
+    ///
+    /// - Parameters:
+    ///   - title: item文字内容
+    ///   - titleColor: item字的颜色
+    ///   - font: item 字体
     func showRightBarButtonItem(_ title : String?,
-                               _ color : UIColor = UIColor.init(hex6: 0x3b424c),
-                               _ font : UIFont = UIFont.systemFont(ofSize: 14)) {
+                                _ titleColor : UIColor = UIColor.init(hex6: 0x3b424c),
+                                _ font : UIFont = UIFont.systemFont(ofSize: 14)) {
         let item = UIBarButtonItem.init(title: title,
                                         style: .plain,
                                         target: self,
                                         action: #selector(self.tapRightBarButtonItem))
         
-        item.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : color, NSAttributedString.Key.font : font],
+        item.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : titleColor, NSAttributedString.Key.font : font],
                                     for: UIControl.State.normal)
         
         navigationItem.setRightBarButton(item, animated: false)
@@ -167,17 +193,57 @@ class BaseViewController: UIViewController, RequestHandleDelegate, UITableViewDe
         return img
     }
     
+    /// 设置点击左边item的点击事件
     @objc func tapLeftBarButtonItem() {
         navigationController?.popViewController(animated: true)
     }
+    /// 设置点击右边item的点击事件
     @objc func tapRightBarButtonItem() {
         
     }
     
+    //MARK: - 网络请求通信代理回调
+    /// 数据加载成功时候的处理
+    ///
+    /// - Parameter handle: done
+    func dataControllerDidFinishLoading(_ handle: JCNetworkHandle) {
+        JCLog(message: "")
+    }
+    
+    /// 数据加载失败时候的处理
+    ///
+    /// - Parameters:
+    ///   - handle: 请求的执行者
+    ///   - error: error
+    func dataController(_ handle: JCNetworkHandle, didFailWithError error: Error?) {
+        JCLog(message: "")
+    }
+    
+    
+    /// 当数据加载不符合预期时的UI提示
+    ///
+    /// - Parameter msg: 提示内容
+    func showMSG(_ msg: String) {
+        showHint(msg)
+    }
+    
+    //MARK: -tableViewDelegate 方法
+    /// 设置cell点击后的效果
+    ///
+    /// - Parameters:
+    ///   - tableView: 假若有tableView
+    ///   - indexPath: 位置信息
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
         cell?.isSelected = false
     }
+    
+    /// 设置cell点击后的效果
+    ///
+    /// - Parameters:
+    ///   - tableView: 假若有tableView
+    ///   - cell: cell
+    ///   - indexPath: 位置信息
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
         cell?.isSelected = false

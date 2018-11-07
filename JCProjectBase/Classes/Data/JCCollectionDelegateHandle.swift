@@ -1,13 +1,15 @@
 //
-//  CollectionDelegateHandle.swift
-//  MBAComing
+//  JCCollectionDelegateHandle.swift
+//  JCProgramBase
 //
 //  Created by 江城 on 2018/10/25.
 //  Copyright © 2018年 Arvin.shi. All rights reserved.
 //
 
 import Foundation
-class CollectionDelegateHandle: JCDelegateHandle, UICollectionViewDataSource, UICollectionViewDelegate {
+
+/// 代理，此代理有点鸡肋
+class JCCollectionDelegateHandle: JCDelegateHandle, UICollectionViewDataSource, UICollectionViewDelegate {
     private var didSelectRowCallBack : ((UICollectionView, IndexPath, Any) -> ())?
     /// 设置代理内容
     ///
@@ -30,7 +32,6 @@ class CollectionDelegateHandle: JCDelegateHandle, UICollectionViewDataSource, UI
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return rows(section)
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let item = collectionView.dequeueReusableCell(withReuseIdentifier: cellClassName, for: indexPath)
         return item

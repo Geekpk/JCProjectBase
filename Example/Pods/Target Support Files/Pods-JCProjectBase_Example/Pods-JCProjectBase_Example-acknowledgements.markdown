@@ -52,7 +52,7 @@ SOFTWARE.
 ## JCProjectBase
 
 
-Copyright (c) 2018 江城石少 <otw0909@gmail.com>
+Copyright (c) 2018 Arvinky <otw0909@gmail.com>
 
 MIT License
 

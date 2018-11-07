@@ -1,6 +1,6 @@
 //
 //  JCStore.swift
-//  SLProgramBase
+//  JCProgramBase
 //
 //  Created by 江城 on 2018/10/22.
 //  Copyright © 2018年 Arvin.shi. All rights reserved.
@@ -29,7 +29,7 @@ struct JCResponseStore {
     var hasMore: Bool {
         if let ndrs = reponseDetails as? Parameters {
             if let hsm = responseKey.hasMore, ndrs.keys.contains(hsm) {
-                return CheckDataTypeUtils.boolValueWithObject(ndrs[responseKey.hasMore!])
+                return JCCheckDataTypeUtils.boolValueWithObject(ndrs[responseKey.hasMore!])
             }else{
                 return customeHasMore
             }
@@ -63,7 +63,7 @@ struct JCRequestStore {
     var requestCount : NSInteger = 0
     
     /// 服务器根路径
-    var urlBasePath: RequestWebsiteType = .online
+    var urlBasePath: String = JCRequestWebsitePath.online()
     
     /// 子路径
     var urlPaths: [String] = [String].init()
@@ -106,8 +106,8 @@ struct JCRequestStore {
     var urls: [URL] {
         var _urls = [URL].init()
         for urlPath in urlPaths {
-            var urlString : String = urlBasePath.rawValue
-            if urlString.count > 0 {
+            var urlString : String = urlBasePath
+            if urlBasePath.count > 0 {
                 urlString = urlString + "?"
             }
             urlString = urlString + urlPath

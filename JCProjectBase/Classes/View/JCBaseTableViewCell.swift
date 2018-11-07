@@ -1,6 +1,6 @@
 //
-//  BaseTableViewCell.swift
-//  MBAComing
+//  JCBaseTableViewCell.swift
+//  JCProgramBase
 //
 //  Created by 江城 on 2018/10/24.
 //  Copyright © 2018年 Arvin.shi. All rights reserved.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BaseTableViewCell: UITableViewCell {
+class JCBaseTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()

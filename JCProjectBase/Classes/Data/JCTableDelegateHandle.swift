@@ -1,13 +1,13 @@
 //
-//  TableDelegateHandle.swift
-//  SLProgramBase
+//  JCTableDelegateHandle.swift
+//  JCProgramBase
 //
 //  Created by 江城 on 2018/10/17.
 //  Copyright © 2018年 Arvin.shi. All rights reserved.
 //
 
 import Foundation
-class TableDelegateHandle: JCDelegateHandle, UITableViewDelegate, UITableViewDataSource {
+class JCTableDelegateHandle: JCDelegateHandle, UITableViewDelegate, UITableViewDataSource {
     
     private var didSelectRowCallBack : ((UITableView, IndexPath, Any) -> ())?
     

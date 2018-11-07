@@ -1,6 +1,5 @@
 //
 //  JCWebViewController.swift
-//  MBAComing
 //
 //  Created by 江城 on 2018/10/25.
 //  Copyright © 2018年 Arvin.shi. All rights reserved.
@@ -8,10 +7,9 @@
 
 import UIKit
 import Alamofire
-class JCWebViewController: BaseViewController , UIWebViewDelegate{
+class JCWebViewController: JCBaseViewController , UIWebViewDelegate{
     var urlStr : String?
     @IBOutlet weak var webview: UIWebView!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()

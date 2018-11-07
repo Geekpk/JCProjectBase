@@ -1,6 +1,6 @@
 //
 //  ExtensionColor.swift
-//  SunlandsMBA
+//  JCProgramBase
 //
 //  Created by 江城 on 2018/8/20.
 //  Copyright © 2018年 Cecilia. All rights reserved.

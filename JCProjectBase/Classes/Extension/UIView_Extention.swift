@@ -1,29 +1,13 @@
 //
 //  UIView_Extention.swift
-//  SLProgramBase
+//  JCProgramBase
 //
 //  Created by 江城 on 2018/10/19.
 //  Copyright © 2018年 Arvin.shi. All rights reserved.
 //
 
 import UIKit
-let StatusBarHeight = UIApplication.shared.statusBarFrame.height
-let navHeight: CGFloat = {
-    let statusBarHeight = UIApplication.shared.statusBarFrame.height
-    if statusBarHeight == 20.0 {
-        return 20 + 44
-    }else {
-        return 44 + 44
-    }
-}()
-let tabbarHeight: CGFloat = {
-    let statusBarHeight = UIApplication.shared.statusBarFrame.height
-    if statusBarHeight == 20.0 {
-        return 49.0
-    }else {
-        return 49.0 + 34.0
-    }
-}()
+
 
 extension UIView {
     func x() -> CGFloat {
@@ -56,6 +40,7 @@ extension UIView {
         shaplayer.path = mutPaht
         layer.addSublayer(shaplayer)
     }
+    
 }
 
 extension UIScreen {

@@ -1,6 +1,6 @@
 //
-//  NetworkHandle.swift
-//  SLProgramBase
+//  JCNetworkHandle.swift
+//  JCProgramBase
 //
 //  Created by 江城 on 2018/10/17.
 //  Copyright © 2018年 Arvin.shi. All rights reserved.
@@ -11,7 +11,7 @@ import Alamofire
 import UIKit
 import Mantle
 
-class NetworkHandle: RequestParameters {
+class JCNetworkHandle: JCRequestParameters {
     
     private var responseStore : JCResponseStore = JCResponseStore.init()
     
@@ -92,7 +92,7 @@ class NetworkHandle: RequestParameters {
         if !isRetry { requestStore.requestCount = 0 }
         
         /// 执行即将获取代理
-        if let d = delegate, d.responds(to: #selector(RequestHandleDelegate.dataControllerWillStartLoading(_:))) {
+        if let d = delegate, d.responds(to: #selector(JCRequestHandleDelegate.dataControllerWillStartLoading(_:))) {
             d.dataControllerWillStartLoading!(self)
         }
         ///请求数据
@@ -126,7 +126,7 @@ class NetworkHandle: RequestParameters {
             r.cancel()
             dataRequest = nil
             /// 执行取消代理
-            if let d = delegate, d.responds(to: #selector(RequestHandleDelegate.dataControllerDidCancelLoading)) {
+            if let d = delegate, d.responds(to: #selector(JCRequestHandleDelegate.dataControllerDidCancelLoading)) {
                 d.dataControllerDidCancelLoading!(self)
             }
         }
@@ -146,7 +146,7 @@ class NetworkHandle: RequestParameters {
             analysisResponse(response.result.value as AnyObject)
             if let _ = response.error {
                 /// 执行失败代理，回来的response显示请求错误
-                if let d = self.delegate, d.responds(to: #selector(RequestHandleDelegate.dataController(_:didFailWithError:))) {
+                if let d = self.delegate, d.responds(to: #selector(JCRequestHandleDelegate.dataController(_:didFailWithError:))) {
                     d.dataController!(self, didFailWithError: response.error)
                 }
                 
@@ -155,19 +155,19 @@ class NetworkHandle: RequestParameters {
             }
             requestStore.requestCount = 0
             /// 执行成功代理
-            if let d = self.delegate, d.responds(to: #selector(RequestHandleDelegate.dataControllerDidFinishLoading(_:))) {
+            if let d = self.delegate, d.responds(to: #selector(JCRequestHandleDelegate.dataControllerDidFinishLoading(_:))) {
                 d.dataControllerDidFinishLoading!(self)
             }
             if let s = self._success { s(response.result.value) }
         }else{
             /// 执行失败代理，请求失败
             if let d = self.delegate {
-                if  d.responds(to: #selector(RequestHandleDelegate.dataController(_:didFailWithError:))) {
+                if  d.responds(to: #selector(JCRequestHandleDelegate.dataController(_:didFailWithError:))) {
                     d.dataController!(self, didFailWithError: response.error)
                 }
                 if showFailToast {
                     ///显示失败信息
-                    if d.responds(to: #selector(RequestHandleDelegate.showMSG(_:))){
+                    if d.responds(to: #selector(JCRequestHandleDelegate.showMSG(_:))){
                         //显示错误提示
                         if let error = response.error {
                             d.showMSG!(error.localizedDescription)
@@ -241,7 +241,7 @@ class NetworkHandle: RequestParameters {
     }
     
     func mantleModelClass() -> AnyClass? {
-        return Model.classForCoder()
+        return JCModel.classForCoder()
     }
     func mantleListModelClass() -> AnyClass? {
         return mantleModelClass()
@@ -343,7 +343,7 @@ class NetworkHandle: RequestParameters {
             if showFailToast {
                 ///显示失败信息
                 if let d = delegate,
-                    d.responds(to: #selector(RequestHandleDelegate.showMSG(_:)))
+                    d.responds(to: #selector(JCRequestHandleDelegate.showMSG(_:)))
                      {
                         //显示错误提示
                     if let failTip = jj[responseKey.msg!] as? String {

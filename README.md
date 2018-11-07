@@ -22,7 +22,7 @@ pod 'JCProjectBase'
 
 ## Author
 
-otw0909@icloud.com, otw0909@gmail.com
+江城石少, otw0909@gmail.com
 
 ## License
 

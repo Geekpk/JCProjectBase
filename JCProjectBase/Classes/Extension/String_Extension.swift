@@ -1,6 +1,6 @@
 //
 //  String_Extension.swift
-//  SLProgramBase
+//  JCProgramBase
 //
 //  Created by 江城 on 2018/10/19.
 //  Copyright © 2018年 Arvin.shi. All rights reserved.
@@ -53,14 +53,21 @@ extension String {
         return piece
     }
     
+    /// 转字符串--->URL
+    ///
+    /// - Returns: URL?
     func transformToURLString() -> URL? {
-        
         if let tstr = addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
             let str = NSString.init(string: tstr).utf8String {
             return URL.init(string: String.init(cString: str))
         }
         return nil
     }
+    
+    /// 类方法，字符串转URL
+    ///
+    /// - Parameter str: 需要转的字符串
+    /// - Returns: URL?
     static func transformToURLString(_ str : String?) -> URL? {
         return str?.transformToURLString()
     }

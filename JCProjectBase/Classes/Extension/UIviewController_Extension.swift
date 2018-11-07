@@ -1,6 +1,6 @@
 //
 //  UIviewController_Extension.swift
-//  SLProgramBase
+//  JCProgramBase
 //
 //  Created by 江城 on 2018/10/19.
 //  Copyright © 2018年 Arvin.shi. All rights reserved.
@@ -13,13 +13,13 @@ extension UIViewController {
     /// 添加子控制器
     ///
     /// - Parameter child: 儿子
-    func addSon(_ child : UIViewController) {
+    func jc_AddSon(_ child : UIViewController) {
         addChild(child)
         child.didMove(toParent: self)
     }
     
     /// 移除子控制器
-    func removeFromFather(){
+    func jc_RemoveFromParent(){
         view.removeFromSuperview()
         willMove(toParent: nil)
         removeFromParent()
