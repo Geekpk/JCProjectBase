@@ -1,6 +1,6 @@
 {
   "name": "JCProjectBase",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "summary": "A short description of JCProjectBase.",
   "description": "TODO: Add long description of the pod here.",
   "homepage": "https://github.com/Geekpk",
@@ -9,11 +9,11 @@
     "file": "LICENSE"
   },
   "authors": {
-    "Arvinky": "otw0909@gmail.com"
+    "江城石少": "otw0909@gmail.com"
   },
   "source": {
     "git": "https://github.com/Geekpk/JCProjectBase.git",
-    "tag": "0.0.1"
+    "tag": "0.1.0"
   },
   "platforms": {
     "ios": "9.0"
