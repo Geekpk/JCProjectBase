@@ -24,7 +24,7 @@ TODO: Add long description of the pod here.
   s.homepage         = 'https://github.com/Geekpk'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { '江城石少' => 'otw0909@gmail.com' }
+  s.author           = { 'Arvinky' => 'otw0909@gmail.com' }
   s.source           = { :git => 'https://github.com/Geekpk/JCProjectBase.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 

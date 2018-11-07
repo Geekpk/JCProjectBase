@@ -51,7 +51,10 @@ SOFTWARE.
 
 ## JCProjectBase
 
-Copyright (c) 2018 otw0909@icloud.com <otw0909@gmail.com>
+
+Copyright (c) 2018 江城石少 <otw0909@gmail.com>
+
+MIT License
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
