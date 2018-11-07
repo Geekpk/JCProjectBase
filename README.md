@@ -27,3 +27,4 @@ otw0909@icloud.com, otw0909@gmail.com
 ## License
 
 JCProjectBase is available under the MIT license. See the LICENSE file for more info.
+

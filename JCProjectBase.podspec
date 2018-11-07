@@ -21,14 +21,14 @@ Pod::Spec.new do |s|
 TODO: Add long description of the pod here.
                        DESC
 
-  s.homepage         = 'https://github.com/otw0909@icloud.com/JCProjectBase'
+  s.homepage         = 'https://github.com/Geekpk'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'otw0909@icloud.com' => 'otw0909@gmail.com' }
-  s.source           = { :git => 'https://github.com/otw0909@icloud.com/JCProjectBase.git', :tag => s.version.to_s }
+  s.author           = { '江城石少' => 'otw0909@gmail.com' }
+  s.source           = { :git => 'https://github.com/Geekpk/JCProjectBase.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '9.0'
 
   s.source_files = 'JCProjectBase/Classes/**/*'
   
@@ -36,7 +36,15 @@ TODO: Add long description of the pod here.
   #   'JCProjectBase' => ['JCProjectBase/Assets/*.png']
   # }
 
+  s.requires_arc = true
+  s.swift_version = '4.2'
   # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.frameworks = 'UIKit', 'Foundation'
+  s.dependency 'Mantle', '~> 2.1.0'
+  s.dependency 'SnapKit', '~> 4.2.0'
+  s.dependency 'YYKit', '~> 1.0.9'
+  s.dependency 'Alamofire', '~> 4.7.3'
+  s.dependency 'MBProgressHUD', '~> 1.1.0'
+  s.dependency 'IQKeyboardManager', '~> 6.2.0'
+  s.dependency 'MJRefresh', '~> 3.1.15.7'
 end
