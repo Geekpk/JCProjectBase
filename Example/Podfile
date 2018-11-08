@@ -5,7 +5,5 @@ target 'JCProjectBase_Example' do
 
   target 'JCProjectBase_Tests' do
     inherit! :search_paths
-
-    
   end
 end

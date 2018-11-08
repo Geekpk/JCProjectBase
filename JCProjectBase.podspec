@@ -35,7 +35,7 @@ TODO: Add long description of the pod here.
   # s.resource_bundles = {
   #   'JCProjectBase' => ['JCProjectBase/Assets/*.png']
   # }
-
+  
   s.requires_arc = true
   s.swift_version = '4.2'
   # s.public_header_files = 'Pod/Classes/**/*.h'
