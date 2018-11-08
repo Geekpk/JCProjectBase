@@ -63,7 +63,7 @@ struct JCRequestStore {
     var requestCount : NSInteger = 0
     
     /// 服务器根路径
-    var urlBasePath: String = JCRequestWebsitePath.online()
+    var urlBasePath: String? = JCRequestWebsitePath.online()
     
     /// 子路径
     var urlPaths: [String] = [String].init()
@@ -88,7 +88,6 @@ struct JCRequestStore {
     /// 是否为上传
     var isUpload = false
     
-    
     /// 当前数据处理类型
     var updateStyle: MantleObjectListUpdateStyle {
         return currentPage == 1 ? .replace : .insert
@@ -106,15 +105,13 @@ struct JCRequestStore {
     var urls: [URL] {
         var _urls = [URL].init()
         for urlPath in urlPaths {
-            var urlString : String = urlBasePath
-            if urlBasePath.count > 0 {
-                urlString = urlString + "?"
+            var urlString : String = String()
+            if let basePath = urlBasePath, basePath.count > 0 {
+                urlString = basePath + "?"
             }
             urlString = urlString + urlPath
-            do {
-                _urls.append(try urlString.asURL())
-            } catch let error {
-                print(error)
+            if let realUrl = urlString.transformToURLString() {
+                _urls.append(realUrl)
             }
         }
         return _urls

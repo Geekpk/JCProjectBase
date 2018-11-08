@@ -9,18 +9,23 @@
 import Foundation
 /// 服务器环境类型~~~~~测试、线上、预发布
 class JCRequestWebsitePath: NSObject {
-    private static let _online : String = "1"
-    private static let _test : String = "1"
-    private static let _custom : String = "1"
-    
-    static func online() -> String {
-        return _online
+    static func online() -> String? {
+        return nil
     }
-    static func test() -> String {
-        return _test
+    static func test() -> String? {
+        return nil
     }
-    static func custom() -> String {
-        return _custom
+    static func custom() -> String? {
+        return nil
+    }
+    func online() -> String? {
+        return nil
+    }
+    func test() -> String? {
+        return nil
+    }
+    func custom() -> String? {
+        return nil
     }
 }
 
