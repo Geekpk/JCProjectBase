@@ -8,7 +8,7 @@
 
 import Foundation
 
-class JCCheckDataTypeUtils: NSObject {
+@objc open class JCCheckDataTypeUtils: NSObject {
     /**
      *  判断对象是否为空,防止类型转换崩溃,,转换为NSInteger类型
      *
@@ -16,7 +16,7 @@ class JCCheckDataTypeUtils: NSObject {
      *
      *  @return NSInteger
      */
-    static func integerValueWithObject(_ obj : Any?) -> Int32 {
+    @objc static func integerValueWithObject(_ obj : Any?) -> Int32 {
         if obj is NSNull || obj == nil {
             return 0
         }
@@ -44,7 +44,7 @@ class JCCheckDataTypeUtils: NSObject {
      *
      *  @return BOOL
      */
-    static func boolValueWithObject(_ obj : Any?) -> Bool {
+    @objc static func boolValueWithObject(_ obj : Any?) -> Bool {
         if obj is NSNull || obj == nil {
             return false
         }
@@ -69,7 +69,7 @@ class JCCheckDataTypeUtils: NSObject {
     /// 邮箱符合性验证。
     ///
     /// - Parameter email: email
-    static func isValidateEmail(_ email : String) -> Bool {
+    @objc static func isValidateEmail(_ email : String) -> Bool {
         let preStr = "\\b([a-zA-Z0-9%_.+\\-]+)@([a-zA-Z0-9.\\-]+?\\.[a-zA-Z]{2,6})\\b"
         let pre = NSPredicate.init(format: "SELF MATCHES %@", preStr)
         return pre.evaluate(with: email)
@@ -79,7 +79,7 @@ class JCCheckDataTypeUtils: NSObject {
     ///
     /// - Parameter string: 字符串
     /// - Returns: bool
-    static func isNumber(_ string : String) -> Bool {
+    @objc static func isNumber(_ string : String) -> Bool {
         let preStr = "^[0-9]*$"
         let pre = NSPredicate.init(format: "SELF MATCHES %@", preStr)
         return pre.evaluate(with: string)
@@ -89,7 +89,7 @@ class JCCheckDataTypeUtils: NSObject {
     ///
     /// - Parameter string: 字符串
     /// - Returns: bool
-    static func isEnglishWords(_ string : String) -> Bool {
+    @objc static func isEnglishWords(_ string : String) -> Bool {
         let preStr = "^[A-Za-z]+$"
         let pre = NSPredicate.init(format: "SELF MATCHES %@", preStr)
         return pre.evaluate(with: string)
@@ -99,7 +99,7 @@ class JCCheckDataTypeUtils: NSObject {
     ///
     /// - Parameter string: 字符串
     /// - Returns: bool
-    static func isValidatePassword(_ string : String) -> Bool {
+    @objc static func isValidatePassword(_ string : String) -> Bool {
         let preStr = "^[\\w\\d_]{6,12}$"
         let pre = NSPredicate.init(format: "SELF MATCHES %@", preStr)
         return pre.evaluate(with: string)
@@ -109,7 +109,7 @@ class JCCheckDataTypeUtils: NSObject {
     ///
     /// - Parameter string: 字符串
     /// - Returns: bool
-    static func isChineseWords(_ string : String) -> Bool {
+    @objc static func isChineseWords(_ string : String) -> Bool {
         let preStr = "^[\\u4e00-\\u9fa5] + $"
         let pre = NSPredicate.init(format: "SELF MATCHES %@", preStr)
         return pre.evaluate(with: string)
@@ -119,7 +119,7 @@ class JCCheckDataTypeUtils: NSObject {
     ///
     /// - Parameter string: 字符串
     /// - Returns: bool
-    static func isInternetUrl(_ string : String) -> Bool {
+    @objc static func isInternetUrl(_ string : String) -> Bool {
         let preStr = "^http://([\\w-]+\\.)+[\\w-]+(/[\\w-./?%&=]*)?$ ；^[a-zA-z]+://(w+(-w+)*)(.(w+(-w+)*))*(?S*)?$"
         let pre = NSPredicate.init(format: "SELF MATCHES %@", preStr)
         return pre.evaluate(with: string)
@@ -129,7 +129,7 @@ class JCCheckDataTypeUtils: NSObject {
     ///
     /// - Parameter string: 字符串
     /// - Returns: bool
-    static func isPhoneNumber(_ string : String) -> Bool {
+    @objc static func isPhoneNumber(_ string : String) -> Bool {
         if string.count != 11 || !string.hasPrefix("1") {
             return false
         }
@@ -140,7 +140,7 @@ class JCCheckDataTypeUtils: NSObject {
     ///
     /// - Parameter string: 字符串
     /// - Returns: bool
-    static func isIdentifyCardNumber(_ string : String) -> Bool {
+    @objc static func isIdentifyCardNumber(_ string : String) -> Bool {
         let preStr = "^\\d{15}|\\d{}18$"
         let pre = NSPredicate.init(format: "SELF MATCHES %@", preStr)
         return pre.evaluate(with: string)

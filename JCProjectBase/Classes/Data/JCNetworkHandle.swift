@@ -11,9 +11,9 @@ import Alamofire
 import UIKit
 import Mantle
 
-class JCNetworkHandle: JCRequestParameters {
+@objc open class JCNetworkHandle: JCRequestParameters {
     
-    private var responseStore : JCResponseStore = JCResponseStore.init()
+    open var responseStore : JCResponseStore = JCResponseStore.init()
     
     /// 自定义解析字段
     ///
@@ -22,19 +22,19 @@ class JCNetworkHandle: JCRequestParameters {
     ///   - data: 详细内容
     ///   - code: 状态码
     ///   - hasMore: hasmore字段
-    func customeResponseKey(msg : String = "msg", data : String = "data", code : String = "code", hasMore : String?) {
+    @objc open func customeResponseKey(msg : String = "msg", data : String = "data", code : String = "code", hasMore : String?) {
         responseStore.responseKey.msg = msg
         responseStore.responseKey.data = data
         responseStore.responseKey.code = code
         responseStore.responseKey.hasMore = hasMore
     }
     
-    var isPrintResponseLog = true
+    public var isPrintResponseLog = true
     
     /// 是否有更多
-    var hasMore: Bool? { return responseStore.hasMore }
+    open var hasMore: Bool? { return responseStore.hasMore }
     
-    var customeHasMore: Bool {
+    open var customeHasMore: Bool {
         get {
             return hasMore ?? false
         }
@@ -43,27 +43,27 @@ class JCNetworkHandle: JCRequestParameters {
         }
     }
     /// 请求回来的有用数据详情
-    var reponseDetails: Any? { return responseStore.reponseDetails }
+    open var reponseDetails: Any? { return responseStore.reponseDetails }
     /// 请求回来的所有数据
-    var responseObj: Any? { return responseStore.responseObj }
+    open var responseObj: Any? { return responseStore.responseObj }
     /// 状态码
-    var statusCode: HTTPCode? { return  responseStore.statusCode }
+    open var statusCode: HTTPCode? { return  responseStore.statusCode }
     
     /// keys
-    var responseKey: JCResponseStore.JCKey { return  responseStore.responseKey }
+    open var responseKey: JCResponseStore.JCKey { return  responseStore.responseKey }
     
     /// 保存返回是单个model时的数据
-    var mantleObject: Any? { return responseStore.mantleObject }
+    open var mantleObject: Any? { return responseStore.mantleObject }
     
-    var mantleObjectList : [Any]? {
+    open var mantleObjectList : [Any]? {
         return responseStore.mantleObjectList
     }
     
     /// 回来的是单个model
-    var mantleKeyPath : String? { return responseKey.data }
+    open var mantleKeyPath : String? { return responseKey.data }
     
     /// 回来的是list
-    var mantleListKeyPath : String? { return responseKey.data }
+    open var mantleListKeyPath : String? { return responseKey.data }
     
     
     /// 成功回调
@@ -72,12 +72,23 @@ class JCNetworkHandle: JCRequestParameters {
     /// 失败回调
     private var _fail : ((Error?)->())?
     
+    /// 更新参数
+    ///
+    /// - Parameter para: para
+    @objc func updateParameters(_ para: Parameters?) {
+        if let p = para {
+            for (k, v) in p {
+                requestStore.parameters[k] = v
+            }
+        }
+    }
+    
     /// 网络请求 获取数据
     ///
     /// - Parameters:
     ///   - success: 成功的回调
     ///   - fail: 失败的回调
-    func request(CompleteHandle success: ((Any?)->())? = nil, CompleteHandle fail: ((Error?)->())? = nil ) {
+    @objc open func request(CompleteHandle success: ((Any?)->())? = nil, CompleteHandle fail: ((Error?)->())? = nil ) {
         if let s = success { _success = s }
         if let f = fail { _fail = f }
         request(false)
@@ -101,7 +112,7 @@ class JCNetworkHandle: JCRequestParameters {
     
     
     /// 再次请求
-    func requestMore() {
+    @objc open func requestMore() {
         if requestStore.parameters.keys.contains(requestStore.pageKey) {
             requestStore.parameters[requestStore.pageKey] = requestStore.parameters[requestStore.pageKey] as! Int + 1
 //            requestStore.parameters[requestStore.pageKey] = NSNumber.init(value: ((requestStore.parameters[requestStore.pageKey] as Int).int32Value + 1))
@@ -113,7 +124,7 @@ class JCNetworkHandle: JCRequestParameters {
         request(false)
     }
     
-    func updateRequest() {
+    @objc open func updateRequest() {
         if requestStore.parameters.keys.contains(requestStore.pageKey) {
             requestStore.parameters[requestStore.pageKey] = 1
         }
@@ -184,7 +195,7 @@ class JCNetworkHandle: JCRequestParameters {
     /// 解析数据城model
     ///
     /// - Parameter response: 请求回来的数据
-    func analysisResponse(_ response : AnyObject) {
+    private func analysisResponse(_ response : AnyObject) {
         JCLog(message: "")
         if  let keyPath = mantleKeyPath,
             let mantleClass = mantleModelClass(),
@@ -240,10 +251,10 @@ class JCNetworkHandle: JCRequestParameters {
         }
     }
     
-    func mantleModelClass() -> AnyClass? {
+    @objc open func mantleModelClass() -> AnyClass? {
         return JCModel.classForCoder()
     }
-    func mantleListModelClass() -> AnyClass? {
+    @objc open func mantleListModelClass() -> AnyClass? {
         return mantleModelClass()
     }
     /// 处理上传回来的数据
@@ -264,7 +275,7 @@ class JCNetworkHandle: JCRequestParameters {
     
     
     ///上传时做的处理
-    func uploadDo() {
+    @objc open func uploadDo() {
         JCLog(message: "")
         weak var weakSelf = self
         Alamofire.upload(multipartFormData: { (multipartFormData) in
@@ -290,7 +301,9 @@ class JCNetworkHandle: JCRequestParameters {
     
     /// 普通网络请求做的处理
     private func requestDo() {
-        JCLog(message: "")
+        JCLog(message: "\nurls: \(requestStore.urls[requestStore.requestCount]) \n" +
+            "method: \(requestStore.method.rawValue) \n" +
+            "parameters: \(requestStore.parameters.description) \n")
         weak var weakSelf = self
         dataRequest = Alamofire.request(requestStore.urls[requestStore.requestCount],
                                         method: requestStore.method,
@@ -306,7 +319,7 @@ class JCNetworkHandle: JCRequestParameters {
             })
         }
     }
-    func jcLog(_ rs : DataResponse<Any>) {
+    private func jcLog(_ rs : DataResponse<Any>) {
         
         var log : String
         if let trs = rs.result.value {
@@ -322,9 +335,6 @@ class JCNetworkHandle: JCRequestParameters {
             else{ log = "NULL" }
         }
         let str = "\n" +
-            "urls: \(requestStore.urls) \n" +
-            "method: \(requestStore.method.rawValue) \n" +
-            "parameters: \(requestStore.parameters.description) \n" +
             "reponse: \(log)"
         JCLog(message: str)
     }
@@ -358,13 +368,13 @@ class JCNetworkHandle: JCRequestParameters {
     }
 }
 
-struct JCParameterEncoding: ParameterEncoding {
+public struct JCParameterEncoding: ParameterEncoding {
     private var parameters : [String]
     init(_ parameters : [String]) {
         self.parameters = parameters
     }
     
-    func encode(_ urlRequest: URLRequestConvertible, with parameters: Parameters?) throws -> URLRequest {
+    public func encode(_ urlRequest: URLRequestConvertible, with parameters: Parameters?) throws -> URLRequest {
         var urlReq = urlRequest.urlRequest
         let data = try JSONSerialization.data(withJSONObject: self.parameters, options: [])
         if urlReq?.value(forHTTPHeaderField: "Content-Type") == nil {

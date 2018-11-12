@@ -7,7 +7,7 @@
 //
 
 import Foundation
-class JCTableDelegateHandle: JCDelegateHandle, UITableViewDelegate, UITableViewDataSource {
+@objc open class JCTableDelegateHandle: JCDelegateHandle, UITableViewDelegate, UITableViewDataSource {
     
     private var didSelectRowCallBack : ((UITableView, IndexPath, Any) -> ())?
     
@@ -17,7 +17,7 @@ class JCTableDelegateHandle: JCDelegateHandle, UITableViewDelegate, UITableViewD
     ///   - source: 数据
     ///   - identify: reused id
     ///   - cellName: cell class name
-    func config(_ source : [[Any]],
+    @objc func config(_ source : [[Any]],
                 _ identify : String,
                 _ cellName : String? = nil,
                 DidSelectRow cellBlock : ((UITableView, IndexPath, Any) -> ())?) {
@@ -26,25 +26,25 @@ class JCTableDelegateHandle: JCDelegateHandle, UITableViewDelegate, UITableViewD
         if let b = cellBlock { didSelectRowCallBack = b }
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    private func numberOfSections(in tableView: UITableView) -> Int {
         return sections
     }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return rows(section)
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellClassName, for: indexPath)
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    private func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let b = didSelectRowCallBack, let s = source {
             b(tableView, indexPath, s[indexPath.section][indexPath.row])
         }
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    private func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
 }

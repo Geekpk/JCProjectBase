@@ -7,13 +7,13 @@
 //
 
 import Foundation
-enum JCLogLevel: String {
+public enum JCLogLevel: String {
     case low    = "---"
     case mid    = "+++"
     case high   = "###"
     case custom = ">>>"
 }
-func JCLog<T>(_ logLevel : JCLogLevel? = .low, message : T, file : String = #file, lineNumber : Int = #line, method : String = #function) {
+public func JCLog<T>(_ logLevel : JCLogLevel? = .low, message : T, file : String = #file, lineNumber : Int = #line, method : String = #function) {
     
     #if DEBUG
     let fileName = (file as NSString).lastPathComponent

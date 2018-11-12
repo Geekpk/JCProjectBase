@@ -9,7 +9,7 @@
 import Foundation
 
 /// 代理，此代理有点鸡肋
-class JCCollectionDelegateHandle: JCDelegateHandle, UICollectionViewDataSource, UICollectionViewDelegate {
+@objc open class JCCollectionDelegateHandle: JCDelegateHandle, UICollectionViewDataSource, UICollectionViewDelegate {
     private var didSelectRowCallBack : ((UICollectionView, IndexPath, Any) -> ())?
     /// 设置代理内容
     ///
@@ -17,7 +17,7 @@ class JCCollectionDelegateHandle: JCDelegateHandle, UICollectionViewDataSource, 
     ///   - source: 数据
     ///   - identify: reused id
     ///   - cellName: cell class name
-    func config(_ source : [[Any]],
+    open func config(_ source : [[Any]],
                 _ identify : String,
                 _ cellName : String? = nil,
                 DidSelectRow cellBlock : ((UICollectionView, IndexPath, Any) -> ())?) {
@@ -25,18 +25,18 @@ class JCCollectionDelegateHandle: JCDelegateHandle, UICollectionViewDataSource, 
         if let b = cellBlock { didSelectRowCallBack = b }
     }
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+    private func numberOfSections(in collectionView: UICollectionView) -> Int {
         return sections
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return rows(section)
     }
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let item = collectionView.dequeueReusableCell(withReuseIdentifier: cellClassName, for: indexPath)
         return item
     }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    private func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let b = didSelectRowCallBack, let s = source {
             b(collectionView, indexPath, s[indexPath.section][indexPath.item])
         }

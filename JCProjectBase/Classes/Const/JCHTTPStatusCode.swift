@@ -9,7 +9,7 @@
 import Foundation
 
 /// 网络请求的状态码解析
-enum HTTPCode : Int {
+@objc public enum HTTPCode : Int {
     case Success = 200
     case Success_Created
     case Success_Accepted
@@ -55,7 +55,7 @@ enum HTTPCode : Int {
     
     case Unknow_Other
     
-    func jc_description() -> String? {
+    public func jc_description() -> String? {
         switch self {
 case .Success:                                  return "请求成功"
 case .Success_Created:                          return "请求被创建完成，同时新的资源被创建。"

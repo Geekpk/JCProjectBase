@@ -7,13 +7,13 @@
 //
 
 import YYKit
-class JCBaseNavigationController: UINavigationController, UIGestureRecognizerDelegate {
+@objc public class JCBaseNavigationController: UINavigationController, UIGestureRecognizerDelegate {
     
     /// 自定义的navi背景图
     private var customizedBgv : UIView?
     
     
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         
         weak var weakSelf = self
@@ -31,14 +31,14 @@ class JCBaseNavigationController: UINavigationController, UIGestureRecognizerDel
     /// 设置侧滑
     ///
     /// - Parameter enable: 是否支持侧滑
-    func enableSideSlip(_ enable : Bool) {
+    @objc public func enableSideSlip(_ enable : Bool) {
         weak var weakSelf = self
         interactivePopGestureRecognizer?.isEnabled = enable
         interactivePopGestureRecognizer?.delegate = enable ? weakSelf : nil
     }
     
     /// 设置navigation bar的背景图，适用情况为需要自定义navi时
-    var customizedBackgroundView: UIView {
+    public var customizedBackgroundView: UIView {
         get {
             if let v = customizedBgv { return v }
             let rect = CGRect.init(x: 0, y: -StatusBarHeight, width: Screen_W, height: NaviHeight)

@@ -7,11 +7,12 @@
 //
 
 import UIKit
-
+import JCProjectBase
 class ViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+//        Screen_W
         // Do any additional setup after loading the view, typically from a nib.
     }
 

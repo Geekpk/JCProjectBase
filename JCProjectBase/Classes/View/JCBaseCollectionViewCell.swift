@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BaseCollectionViewCell: UICollectionViewCell {
+class JCBaseCollectionViewCell: UICollectionViewCell {
     func config(_ m : JCModel) { }
     
     /// cell name

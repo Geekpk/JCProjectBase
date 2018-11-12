@@ -7,7 +7,7 @@
 //
 
 import Alamofire
-@objc protocol JCRequestHandleDelegate : NSObjectProtocol {
+@objc public protocol JCRequestHandleDelegate : NSObjectProtocol {
     /**< 接口将要开始加载 */
     @objc optional func dataControllerWillStartLoading(_ handle : JCNetworkHandle)
     /**< 接口加载加载成功 */
@@ -20,29 +20,29 @@ import Alamofire
     @objc optional func showMSG(_ msg : String)
 }
 
-class JCRequestParameters: NSObject {
+@objc open class JCRequestParameters: NSObject {
     
     /// 请求参数相关区
-    var requestStore : JCRequestStore = JCRequestStore()
+    open var requestStore : JCRequestStore = JCRequestStore()
     
     /// 请求参数
-    var parameters: Parameters { return requestStore.parameters }
+    open var parameters: Parameters { return requestStore.parameters }
     
     /// 请求头
-    var headers: HTTPHeaders { return requestStore.headers }
+    open var headers: HTTPHeaders { return requestStore.headers }
     
     /// 回调代理
-    weak var delegate : JCRequestHandleDelegate?
+    open weak var delegate : JCRequestHandleDelegate?
     
     /**< 自定义接口请求失败是否需要toast显示原因    默认YES */
-    var showFailToast : Bool = true
+    open var showFailToast : Bool = true
     
     /// 网络请求
-    var dataRequest : DataRequest?
+    open var dataRequest : DataRequest?
     
-    var requestManager : SessionManager = Alamofire.SessionManager.default
+    open var requestManager : SessionManager = Alamofire.SessionManager.default
     
-    init(_ del : JCRequestHandleDelegate) {
+    public init(_ del : JCRequestHandleDelegate) {
         delegate = del
     }
 }

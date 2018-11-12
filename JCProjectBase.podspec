@@ -38,7 +38,7 @@ TODO: Add long description of the pod here.
   
   s.requires_arc = true
   s.swift_version = '4.2'
-  # s.public_header_files = 'Pod/Classes/**/*.h'
+#   s.public_header_files = 'Pod/Classes/JCDefine.swift'
   s.frameworks = 'UIKit', 'Foundation'
   s.dependency 'Mantle', '~> 2.1.0'
   s.dependency 'SnapKit', '~> 4.2.0'

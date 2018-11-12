@@ -7,8 +7,8 @@
 //
 import Mantle
 import Foundation
-class JCModel: MTLModel, MTLJSONSerializing {
-    static func jsonKeyPathsByPropertyKey() -> [AnyHashable : Any]! {
+@objc open class JCModel: MTLModel, MTLJSONSerializing {
+    @objc public static func jsonKeyPathsByPropertyKey() -> [AnyHashable : Any]! {
         var keyValues = [AnyHashable : Any].init()
         var count : UInt32 = 0
         //获取属性列表

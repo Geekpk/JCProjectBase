@@ -10,8 +10,8 @@ import Foundation
 import Alamofire
 
 
-struct JCResponseStore {
-    struct JCKey {
+public struct JCResponseStore {
+    public struct JCKey {
         /// 是否有更多，key
         var hasMore : String? = "hasMore"
         
@@ -24,9 +24,9 @@ struct JCResponseStore {
         /// 回来提示信息
         var msg : String? = "msg"
     }
-    var responseKey : JCKey = JCKey.init()
+    public var responseKey : JCKey = JCKey.init()
     /// 是否有更多
-    var hasMore: Bool {
+    public var hasMore: Bool {
         if let ndrs = reponseDetails as? Parameters {
             if let hsm = responseKey.hasMore, ndrs.keys.contains(hsm) {
                 return JCCheckDataTypeUtils.boolValueWithObject(ndrs[responseKey.hasMore!])
@@ -36,63 +36,75 @@ struct JCResponseStore {
         }
         return false
     }
-    var customeHasMore = false
+    public var customeHasMore = false
     
     /// 请求回来的所有数据
-    var responseObj : Any?
+    public var responseObj : Any?
     
     /// 请求回来的有用数据详情
-    var reponseDetails : Any?
+    public var reponseDetails : Any?
     
     /// 状态码
-    var customStatusCode : Int?
-    var statusCode : HTTPCode?
+    public var customStatusCode : Int?
+    public var statusCode : HTTPCode?
     
-    var mantleObject : Any?
-    var mantleObjectList : [Any]?
-    
+    public var mantleObject : Any?
+    public var mantleObjectList : [Any]?
 }
 
-struct JCRequestStore {
-    enum MantleObjectListUpdateStyle {
+public struct JCRequestStore {
+    public enum MantleObjectListUpdateStyle {
         case insert
         case replace
     }
     
     ///请求次数
-    var requestCount : NSInteger = 0
+    public var requestCount : NSInteger = 0
     
     /// 服务器根路径
-    var urlBasePath: String? = JCRequestWebsitePath.online()
-    
-    /// 子路径
-    var urlPaths: [String] = [String].init()
+    public var urlPathHandle: JCRequestWebsite = JCRequestWebsite()
+    public var baseURLPath: String? {
+        get{
+            return urlPathHandle.baseURLPath
+        }
+        set{
+            urlPathHandle.baseURLPath = newValue
+        }
+    }
+    public var urlPaths: [String] {
+        get {
+            return urlPathHandle.urlPaths
+        }
+        set {
+            urlPathHandle.urlPaths = newValue
+        }
+    }
     
     /// 分页，key
-    var pageKey = "page"
+    public var pageKey = "page"
     
-    var pageSizeKey = "pageSize"
+    public var pageSizeKey = "pageSize"
     
     /// 请求方法
-    var method: HTTPMethod = .get
+    public var method: HTTPMethod = .get
     
     /// 请求参数
-    var parameters: Parameters = Parameters.init()
+    public var parameters: Parameters = Parameters.init()
     
     /// 请求头
-    var headers: HTTPHeaders = HTTPHeaders.init()
+    public var headers: HTTPHeaders = HTTPHeaders.init()
     
     /// 编解码格式
-    var encodeing = URLEncoding.default
+    public var encodeing = URLEncoding.default
     
     /// 是否为上传
-    var isUpload = false
+    public var isUpload = false
     
     /// 当前数据处理类型
-    var updateStyle: MantleObjectListUpdateStyle {
+    public var updateStyle: MantleObjectListUpdateStyle {
         return currentPage == 1 ? .replace : .insert
     }
-    var currentPage: NSInteger {
+    public var currentPage: NSInteger {
         if  parameters.keys.contains(pageKey),
             let pageC = parameters[pageKey],
             let c = (pageC as AnyObject).int32Value {
@@ -102,11 +114,11 @@ struct JCRequestStore {
     }
     
     /// 获取URL
-    var urls: [URL] {
+    public var urls: [URL] {
         var _urls = [URL].init()
-        for urlPath in urlPaths {
+        for urlPath in urlPathHandle.urlPaths {
             var urlString : String = String()
-            if let basePath = urlBasePath, basePath.count > 0 {
+            if let basePath = urlPathHandle.baseURLPath, basePath.count > 0 {
                 urlString = basePath + "?"
             }
             urlString = urlString + urlPath

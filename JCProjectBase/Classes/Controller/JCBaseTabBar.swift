@@ -6,7 +6,7 @@
 //
 
 
-class JCBaseTabBar: UITabBar {
+@objc open class JCBaseTabBar: UITabBar {
     
     
 }

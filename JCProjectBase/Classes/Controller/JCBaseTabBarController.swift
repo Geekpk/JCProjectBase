@@ -6,7 +6,7 @@
 //
 
 import Foundation
-class JCBaseTabBarController: UITabBarController {
+@objc open class JCBaseTabBarController: UITabBarController {
     
     /// 设置子控制器属性内容
     ///
@@ -17,7 +17,7 @@ class JCBaseTabBarController: UITabBarController {
     ///   - selImg: 选中时图片
     ///   - imgInset: 偏移
     //WARNING: 设置偏移时，需要对成，不然会发生点击变小或变大的情况
-    func jc_AddChild(_ child : UIViewController, _ title : String?, _ img : String?, _ selImg : String?, _ imgInset : UIEdgeInsets?) {
+    open func jc_AddChild(_ child : UIViewController, _ title : String?, _ img : String?, _ selImg : String?, _ imgInset : UIEdgeInsets?) {
         if let timg = img {
             child.tabBarItem.image = UIImage.init(named: timg)?.withRenderingMode(.alwaysOriginal)
         }

@@ -9,22 +9,22 @@
 import Foundation
 import IQKeyboardManager
 
-class JCBaseViewController: UIViewController, JCRequestHandleDelegate, UITableViewDelegate {
-    enum StatusBarStyle {
+@objc open class JCBaseViewController: UIViewController, JCRequestHandleDelegate, UITableViewDelegate {
+    public enum StatusBarStyle {
         case black
         case white
     }
     //MARK: - 属性
     /// 用于表示是否需要刷新
-    var isNeedRefresh : Bool = false
+    open var isNeedRessetData : Bool = false
     
     private var navigationBarBgv : UIView?
     
     /// 电池栏样式
-    var statusBarStyle : StatusBarStyle = .black
+    open var statusBarStyle : StatusBarStyle = .black
     
     /// 自定义导航栏背景
-    var navigationBarBackgroundView: UIView? {
+    open var navigationBarBackgroundView: UIView? {
         if let _ = navigationController,navigationController is JCBaseNavigationController {
             return (navigationController as! JCBaseNavigationController).customizedBackgroundView
         }
@@ -32,12 +32,12 @@ class JCBaseViewController: UIViewController, JCRequestHandleDelegate, UITableVi
     }
     
     //MARK: - 生命周期方法
-    override func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         normalSetting()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         var scrollView : UIScrollView?
@@ -62,7 +62,7 @@ class JCBaseViewController: UIViewController, JCRequestHandleDelegate, UITableVi
     }
     //MARK: - 通用工具方法
     /// 通用设置
-    func normalSetting() {
+    @objc open func normalSetting() {
         IQKeyboardManager.shared().isEnableAutoToolbar = true
         if let childs = navigationController?.children, childs.count > 1 { defaultLeftBarButtonItem() }
         requestForData()
@@ -70,22 +70,22 @@ class JCBaseViewController: UIViewController, JCRequestHandleDelegate, UITableVi
     }
     
     /// 页面加载时做的事情
-    func creatUI(){}
+    @objc open func creatUI(){}
     
     /// 网络请求
-    func requestForData(){}
+    @objc open func requestForData(){}
     
     /// 数据解析，处理
-    func dealWithReseponse(){}
+    @objc open func dealWithReseponse(){}
     
     //MARK: - 导航栏事件相关
     /// 设置item
-    func defaultLeftBarButtonItem() {
+    @objc open func defaultLeftBarButtonItem() {
         showLeftBarButtonItem()
     }
     
     /// 是否隐藏导航栏
-    var isHiddenNavigationBar: Bool = false {
+    open var isHiddenNavigationBar: Bool = false {
         willSet {
             if isViewLoaded {
                 navigationController?.navigationBar.isHidden = newValue
@@ -94,7 +94,7 @@ class JCBaseViewController: UIViewController, JCRequestHandleDelegate, UITableVi
     }
     
     /// 根据statusBarStyle样式设置导航栏颜色样式
-    override var preferredStatusBarStyle: UIStatusBarStyle {
+    override open var preferredStatusBarStyle: UIStatusBarStyle {
         switch statusBarStyle {
         case .white:    return .lightContent
         case .black:    return .default
@@ -104,7 +104,7 @@ class JCBaseViewController: UIViewController, JCRequestHandleDelegate, UITableVi
     /// 设置左边naviItem
     ///
     /// - Parameter img: 图片
-    func showLeftBarButtonItem(_ img : UIImage? = UIImage.init(named: "back")?.byTintColor(UIColor.darkGray)) {
+    @objc open func showLeftBarButtonItem(_ img : UIImage? = UIImage.init(named: "back")?.byTintColor(UIColor.darkGray)) {
         let item = UIBarButtonItem.init(image: img?.withRenderingMode(.alwaysOriginal),
                                         style: .plain,
                                         target: self,
@@ -120,7 +120,7 @@ class JCBaseViewController: UIViewController, JCRequestHandleDelegate, UITableVi
     ///   - title: item文字内容
     ///   - titleColor: item字的颜色
     ///   - font: item 字体
-    func showLeftBarButtonItem(_ title : String?,
+    @objc open func showLeftBarButtonItem(_ title : String?,
                                _ titleColor : UIColor = UIColor.init(hex6: 0x3b424c),
                                _ font : UIFont = UIFont.systemFont(ofSize: 14)) {
         let item = UIBarButtonItem.init(title: title,
@@ -141,7 +141,7 @@ class JCBaseViewController: UIViewController, JCRequestHandleDelegate, UITableVi
     ///   - title: item文字内容
     ///   - titleColor: item字的颜色
     ///   - font: item 字体
-    func showLeftBarButtonItem(_ img : UIImage? = UIImage.init(named: "back")?.byTintColor(UIColor.darkGray),
+    @objc open func showLeftBarButtonItem(_ img : UIImage? = UIImage.init(named: "back")?.byTintColor(UIColor.darkGray),
                                _ title : String?,
                                _ color : UIColor = UIColor.init(hex6: 0x3b424c),
                                _ font : UIFont = UIFont.systemFont(ofSize: 14)) {
@@ -162,7 +162,7 @@ class JCBaseViewController: UIViewController, JCRequestHandleDelegate, UITableVi
     ///   - title: item文字内容
     ///   - titleColor: item字的颜色
     ///   - font: item 字体
-    func showRightBarButtonItem(_ title : String?,
+    @objc open func showRightBarButtonItem(_ title : String?,
                                 _ titleColor : UIColor = UIColor.init(hex6: 0x3b424c),
                                 _ font : UIFont = UIFont.systemFont(ofSize: 14)) {
         let item = UIBarButtonItem.init(title: title,
@@ -182,7 +182,7 @@ class JCBaseViewController: UIViewController, JCRequestHandleDelegate, UITableVi
     ///
     /// - Parameter frame: 尺寸
     /// - Returns: UIimage
-    func transparentImageWithFrame(_ frame : CGRect) -> UIImage? {
+    @objc open func transparentImageWithFrame(_ frame : CGRect) -> UIImage? {
         var rect = CGRect.zero
         rect.size = frame.size
         UIGraphicsBeginImageContext(rect.size)
@@ -194,11 +194,11 @@ class JCBaseViewController: UIViewController, JCRequestHandleDelegate, UITableVi
     }
     
     /// 设置点击左边item的点击事件
-    @objc func tapLeftBarButtonItem() {
+    @objc open func tapLeftBarButtonItem() {
         navigationController?.popViewController(animated: true)
     }
     /// 设置点击右边item的点击事件
-    @objc func tapRightBarButtonItem() {
+    @objc open func tapRightBarButtonItem() {
         
     }
     
@@ -206,7 +206,7 @@ class JCBaseViewController: UIViewController, JCRequestHandleDelegate, UITableVi
     /// 数据加载成功时候的处理
     ///
     /// - Parameter handle: done
-    func dataControllerDidFinishLoading(_ handle: JCNetworkHandle) {
+    @objc func dataControllerDidFinishLoading(_ handle: JCNetworkHandle) {
         JCLog(message: "")
     }
     
@@ -215,15 +215,41 @@ class JCBaseViewController: UIViewController, JCRequestHandleDelegate, UITableVi
     /// - Parameters:
     ///   - handle: 请求的执行者
     ///   - error: error
-    func dataController(_ handle: JCNetworkHandle, didFailWithError error: Error?) {
+    @objc func dataController(_ handle: JCNetworkHandle, didFailWithError error: Error?) {
         JCLog(message: "")
     }
     
+    /// 暂停刷新
+    ///
+    /// - Parameters:
+    ///   - t: tableView
+    ///   - handle: 网络请求handle
+    @objc func endRefreshFooterHeader(_ t : UITableView, _ handle: JCNetworkHandle) {
+        endRefreshFooterHeader(t)
+        if let h = handle.hasMore, !h {
+            t.mj_footer.endRefreshingWithNoMoreData()
+        }else{
+            t.mj_footer.isHidden = false
+            t.mj_footer.resetNoMoreData()
+        }
+        
+    }
     
+    /// 调整footer & header状态
+    ///
+    /// - Parameter t: <#t description#>
+    @objc open func endRefreshFooterHeader(_ t : UITableView) {
+        if t.mj_footer.isRefreshing {
+            t.mj_footer.endRefreshing()
+        }
+        if t.mj_header.isRefreshing {
+            t.mj_header.endRefreshing()
+        }
+    }
     /// 当数据加载不符合预期时的UI提示
     ///
     /// - Parameter msg: 提示内容
-    func showMSG(_ msg: String) {
+    @objc open func showMSG(_ msg: String) {
         showHint(msg)
     }
     
@@ -233,7 +259,7 @@ class JCBaseViewController: UIViewController, JCRequestHandleDelegate, UITableVi
     /// - Parameters:
     ///   - tableView: 假若有tableView
     ///   - indexPath: 位置信息
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    private func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
         cell?.isSelected = false
     }
@@ -244,7 +270,7 @@ class JCBaseViewController: UIViewController, JCRequestHandleDelegate, UITableVi
     ///   - tableView: 假若有tableView
     ///   - cell: cell
     ///   - indexPath: 位置信息
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    private func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
         cell?.isSelected = false
     }

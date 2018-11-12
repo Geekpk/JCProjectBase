@@ -9,13 +9,13 @@
 import Foundation
 import CoreLocation
 
-class JCLocationLoad: NSObject, CLLocationManagerDelegate {
+@objc open class JCLocationLoad: NSObject, CLLocationManagerDelegate {
     private static let manager = JCLocationLoad()
     private override init() {
         super.init()
     }
     
-    static var share: JCLocationLoad {
+    @objc public static var share: JCLocationLoad {
         return manager
     }
     
@@ -23,9 +23,9 @@ class JCLocationLoad: NSObject, CLLocationManagerDelegate {
     
     private var currentLocation : CLLocation?
     
-    var city : String?
+    @objc public var city : String?
     
-    func startLoading() {
+    @objc open func startLoading() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
         //始终允许访问位置信息
@@ -41,7 +41,7 @@ class JCLocationLoad: NSObject, CLLocationManagerDelegate {
     /// - Parameters:
     ///   - manager: 定位handle
     ///   - locations: location
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    private func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         currentLocation = locations.last
         if let _ = currentLocation {
             //解析定位
@@ -56,7 +56,7 @@ class JCLocationLoad: NSObject, CLLocationManagerDelegate {
     /// - Parameters:
     ///   - manager: 定位handle
     ///   - error: 描述
-    func locationManager(_ manager: CLLocationManager, didFinishDeferredUpdatesWithError error: Error?) {
+    private func locationManager(_ manager: CLLocationManager, didFinishDeferredUpdatesWithError error: Error?) {
         JCLog(message: error?.localizedDescription)
         //发送失败通知
         NotificationCenter.default.post(name: NSNotification.Name.updateLocationFail, object: nil)

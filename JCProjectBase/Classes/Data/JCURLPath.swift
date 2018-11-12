@@ -8,29 +8,48 @@
 
 import Foundation
 /// 服务器环境类型~~~~~测试、线上、预发布
-class JCRequestWebsitePath: NSObject {
-    static func online() -> String? {
+@objc open class JCRequestWebsite: NSObject {
+    @objc public static func online() -> String? {
         return nil
     }
-    static func test() -> String? {
+    @objc public static func test() -> String? {
         return nil
     }
-    static func custom() -> String? {
+    @objc public static func custom() -> String? {
         return nil
     }
-    func online() -> String? {
+    @objc open func online() -> String? {
         return nil
     }
-    func test() -> String? {
+    @objc open func test() -> String? {
         return nil
     }
-    func custom() -> String? {
+    @objc open func custom() -> String? {
         return nil
+    }
+    private var _baseURLPath: String?
+    @objc open var baseURLPath: String? {
+        get{
+            return _baseURLPath
+        }
+        set{
+            _baseURLPath = newValue
+        }
+    }
+    /// 子路径
+    private var _urlPaths = [String].init()
+    @objc open var urlPaths: [String] {
+        get {
+            return _urlPaths
+        }
+        set {
+            _urlPaths = newValue
+        }
     }
 }
 
 //MARK: -子路径
-extension JCRequestWebsitePath {
+public extension JCRequestWebsite {
     
 }
 

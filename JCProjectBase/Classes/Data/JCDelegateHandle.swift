@@ -7,26 +7,26 @@
 //
 
 import Foundation
-class JCDelegateHandle: NSObject {
+@objc open class JCDelegateHandle: NSObject {
     private var _source : [[Any]]?
     
     private var _cellClass : AnyClass?
     
-    var cellClassName: String {
+    open var cellClassName: String {
         assert(_cellClass == nil, "cell class not set")
         return String.init(cString: object_getClassName(_cellClass))
     }
     
-    var sections: Int {
+    open var sections: Int {
         if let s = _source { return s.count }
         return 0
     }
     
-    var source: [[Any]]? {
+    open var source: [[Any]]? {
         return _source
     }
     
-    func rows(_ section: Int) -> Int {
+    open func rows(_ section: Int) -> Int {
         if let s = _source { return s[section].count }
         return 0
     }
@@ -37,7 +37,7 @@ class JCDelegateHandle: NSObject {
     ///   - source: 数据
     ///   - identify: reused id
     ///   - cellName: cell class name
-    func config(_ source : [[Any]],
+    @objc open func config(_ source : [[Any]],
                 _ identify : String,
                 _ cellName : String? = nil) {
         

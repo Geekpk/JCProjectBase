@@ -7,15 +7,15 @@
 
 import UIKit
 import Alamofire
-class JCWebViewController: JCBaseViewController , UIWebViewDelegate{
+@objc open class JCWebViewController: JCBaseViewController , UIWebViewDelegate{
     var urlStr : String?
     @IBOutlet weak var webview: UIWebView!
     
-    override func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    override func creatUI() {
+    override open func creatUI() {
         super.creatUI()
         do {
             if let url = try urlStr?.asURL() {
@@ -26,11 +26,11 @@ class JCWebViewController: JCBaseViewController , UIWebViewDelegate{
             JCLog(message: error.localizedDescription)
         }
     }
-    func webViewDidFinishLoad(_ webView: UIWebView) {
+    private func webViewDidFinishLoad(_ webView: UIWebView) {
         JCLog(message: "")
         hideHud()
     }
-    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
+    private func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
         JCLog(message: error.localizedDescription)
         hideHud()
     }
