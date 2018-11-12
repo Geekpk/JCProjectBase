@@ -7,24 +7,24 @@
 //
 
 import MJRefresh
-class JCRefreshHeader: MJRefreshStateHeader {
-    lazy var gifView: UIImageView = {
+@objc open class JCRefreshHeader: MJRefreshStateHeader {
+    open lazy var gifView: UIImageView = {
         var gitView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: w(), height: 40))
         gitView.contentMode = .center
         addSubview(gitView)
         return gitView
     }()
-    lazy var stateImages: Dictionary<MJRefreshState, [UIImage]> = {
+    open lazy var stateImages: Dictionary<MJRefreshState, [UIImage]> = {
         var stateImages = Dictionary<MJRefreshState, [UIImage]>.init()
         return stateImages
     }()
     
-    lazy var stateDurations: Dictionary<MJRefreshState, TimeInterval> = {
+    open lazy var stateDurations: Dictionary<MJRefreshState, TimeInterval> = {
         var stateDurations = Dictionary<MJRefreshState, TimeInterval>.init()
         return stateDurations
     }()
     
-    func images(_ imgs : [UIImage]?, _ duration : TimeInterval, _ state : MJRefreshState) {
+    open func images(_ imgs : [UIImage]?, _ duration : TimeInterval, _ state : MJRefreshState) {
         if let images = imgs, images.count > 0 {
             stateImages[state] = images
             stateDurations[state] = duration
@@ -33,12 +33,12 @@ class JCRefreshHeader: MJRefreshStateHeader {
             }
         }
     }
-    func images(_ imgs : [UIImage]?, _ state : MJRefreshState) {
+    open func images(_ imgs : [UIImage]?, _ state : MJRefreshState) {
         if let images = imgs, images.count > 0 {
             self.images(images, TimeInterval(images.count) * 0.1, state)
         }
     }
-    override var pullingPercent: CGFloat {
+    override open var pullingPercent: CGFloat {
         get {
             return super.pullingPercent
         }
@@ -52,7 +52,7 @@ class JCRefreshHeader: MJRefreshStateHeader {
             }
         }
     }
-    override func prepare() {
+    override open func prepare() {
         super.prepare()
         lastUpdatedTimeKey = MJRefreshHeaderLastUpdatedTimeKey
         setTitle("下拉刷新", for: .idle)
@@ -62,7 +62,7 @@ class JCRefreshHeader: MJRefreshStateHeader {
         stateLabel.textColor = UIColor.init(hex6: 0xcccccc)
         mj_h = 64
     }
-    override func placeSubviews() {
+    override open func placeSubviews() {
         super.placeSubviews()
         stateLabel.frame = CGRect.init(x: 0, y: 40, width: w(), height: 12)
         var imgs : [UIImage] = [UIImage].init()
@@ -78,7 +78,7 @@ class JCRefreshHeader: MJRefreshStateHeader {
             lastUpdatedTimeLabel.isHidden = true
         }
     }
-    override var state: MJRefreshState {
+    override open var state: MJRefreshState {
         get{
             return super.state
         }
@@ -104,8 +104,8 @@ class JCRefreshHeader: MJRefreshStateHeader {
     }
 }
 
-class RefreshFooter: MJRefreshAutoNormalFooter {
-    override func prepare() {
+open class RefreshFooter: MJRefreshAutoNormalFooter {
+    override open func prepare() {
         super.prepare()
         setTitle("没有更多了", for: .noMoreData)
         setTitle("", for: .idle)

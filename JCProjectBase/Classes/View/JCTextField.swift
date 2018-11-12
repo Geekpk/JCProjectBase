@@ -8,16 +8,16 @@
 
 import UIKit
 
-class JCTextField: UITextField {
+open class JCTextField: UITextField {
     
     /// 设置偏移
     ///
     /// - Parameter bounds: <#bounds description#>
     /// - Returns: <#return value description#>
-    override func textRect(forBounds bounds: CGRect) -> CGRect {
+    override open func textRect(forBounds bounds: CGRect) -> CGRect {
         return CGRect.init(origin: CGPoint.init(x: 10, y: 0), size: bounds.size)
     }
-    override func editingRect(forBounds bounds: CGRect) -> CGRect {
+    override open func editingRect(forBounds bounds: CGRect) -> CGRect {
         return CGRect.init(origin: CGPoint.init(x: 10, y: 0), size: bounds.size)
     }
     /*

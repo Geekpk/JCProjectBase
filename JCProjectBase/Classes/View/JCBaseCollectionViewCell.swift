@@ -8,11 +8,11 @@
 
 import UIKit
 
-class JCBaseCollectionViewCell: UICollectionViewCell {
-    func config(_ m : JCModel) { }
+@objc open class JCBaseCollectionViewCell: UICollectionViewCell {
+    open func config(_ m : JCModel) { }
     
     /// cell name
-    static var cellClassName : String {
+    static public var cellClassName : String {
         return NSString.init(cString: object_getClassName(self), encoding: String.Encoding.utf8.rawValue)!.components(separatedBy: ".").last!
     }
     /// 注册
@@ -23,7 +23,7 @@ class JCBaseCollectionViewCell: UICollectionViewCell {
     ///   - identify: id & 以及nib名字
     // WARNING: --- nib名字与关联class名字必须相同
     
-    static func register(_ collect: UICollectionView, _ isNIB : Bool = true, _ identify : String? = nil) {
+    static public func register(_ collect: UICollectionView, _ isNIB : Bool = true, _ identify : String? = nil) {
         if isNIB {
             let nib = UINib.init(nibName: cellClassName, bundle: nil)
             collect.register(nib, forCellWithReuseIdentifier: identify ?? cellClassName)

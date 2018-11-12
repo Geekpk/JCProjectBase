@@ -8,7 +8,7 @@
 
 import UIKit
 
-class JCPageControl: UIPageControl {
+@objc open class JCPageControl: UIPageControl {
 
     /*
     // Only override draw() if you perform custom drawing.
@@ -17,7 +17,7 @@ class JCPageControl: UIPageControl {
         // Drawing code
     }
     */
-    override var numberOfPages: Int {
+    override open var numberOfPages: Int {
         didSet{
             
         }

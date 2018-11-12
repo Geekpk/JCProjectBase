@@ -8,20 +8,20 @@
 
 import UIKit
 
-class JCBaseTableViewCell: UITableViewCell {
+@objc open class JCBaseTableViewCell: UITableViewCell {
 
-    override func awakeFromNib() {
+    override open func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
+    override open func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
     
-    static var cellClassName : String {
+    static public var cellClassName : String {
         return NSString.init(cString: object_getClassName(self), encoding: String.Encoding.utf8.rawValue)!.components(separatedBy: ".").last!
     }
     
@@ -34,7 +34,7 @@ class JCBaseTableViewCell: UITableViewCell {
     ///   - isNIB: 是否注册nib
     ///   - identify: id & 以及nib名字
     // WARNING: --- nib名字与关联class名字必须相同
-    static func register(_ table: UITableView, _ isNIB : Bool = true, _ identify : String? = nil) {
+    static public func register(_ table: UITableView, _ isNIB : Bool = true, _ identify : String? = nil) {
         JCLog(message: self.cellClassName)
         if isNIB {
             let nib = UINib.init(nibName: cellClassName, bundle: nil)
