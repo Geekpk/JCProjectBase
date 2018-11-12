@@ -7,23 +7,24 @@
 //
 
 import UIKit
-let Screen_W = UIScreen.main.w()
-let Screen_H = UIScreen.main.h()
 
-let IsIphoneX = Screen_W == 375.0 && Screen_H == 812.0
-let IsIphoneXR = Screen_W == 414.0 && Screen_H == 896.0
+public let Screen_W = UIScreen.main.w()
+public let Screen_H = UIScreen.main.h()
+
+public let IsIphoneX = Screen_W == 375.0 && Screen_H == 812.0
+public let IsIphoneXR = Screen_W == 414.0 && Screen_H == 896.0
 
 /// 电池栏高度
-let StatusBarHeight = UIApplication.shared.statusBarFrame.height
+public let StatusBarHeight = UIApplication.shared.statusBarFrame.height
 
 /// 导航栏高度
-let NaviHeight: CGFloat = {
+public let NaviHeight: CGFloat = {
     let statusBarHeight = UIApplication.shared.statusBarFrame.height
     return UIApplication.shared.statusBarFrame.height + 44
 }()
 
 /// 底部抽屉栏高度
-let TabbarHeight: CGFloat = {
+public let TabbarHeight: CGFloat = {
     let statusBarHeight = UIApplication.shared.statusBarFrame.height
     if statusBarHeight == 20.0 {
         return 49.0
@@ -33,4 +34,4 @@ let TabbarHeight: CGFloat = {
 }()
 
 /// 方便UI设计，适配工作
-let kUIScreenScale_W : CGFloat = Screen_W / 375.0
+public let kUIScreenScale_W : CGFloat = Screen_W / 375.0
